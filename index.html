@@ -14,16 +14,16 @@
 <!--[if !(IE)]><!-->
 <html><!--<![endif]--><head>
 <title>love 520 送你的一封情书</title>
-<script type="text/javascript">
-            var msg = document.title;
-            msg = "…" + msg;pos = 0;
-            function scrollMSG() {
-                document.title = msg.substring(pos, msg.length) + msg.substring(0, pos);
-                pos++;
-                if (pos >  msg.length) pos = 0
-                window.setTimeout("scrollMSG()",400);
-            }
-            scrollMSG();
+<script language=javascript >
+var text=document.title
+var timerID
+function newtext() {
+    clearTimeout(timerId)                  
+    document.title=text.substring(1,text.length)+text.substring(0,1)
+    text=document.title.substring(0,text.length)
+    timerId = setTimeout("newtext()", 500)
+}
+newtext();
 </script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta http-equiv="Pragma" content="no-cache">
