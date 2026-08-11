@@ -1,8 +1,8 @@
-name: Deploy Astro Blog to GitHub Pages
+name: Deploy Astro Site to Pages
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -27,26 +27,22 @@ jobs:
         with:
           version: 11.2.2
 
-      - name: Setup Node
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'pnpm'
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build with Astro
+      - name: Build site
         run: pnpm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: ./dist
 
   deploy:
     environment:
