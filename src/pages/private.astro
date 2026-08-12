@@ -27,7 +27,7 @@ const privatePosts = await getCollection("privatePosts");
     <div id="lock-screen" class="my-8 rounded-xl border border-muted p-6 text-center">
       <p class="font-medium text-foreground mb-4">🔑 请输入专属解密密钥访问私密文章</p>
       <div class="flex justify-center gap-2 max-w-sm mx-auto">
-        <input id="secret-pass" type="password" placeholder="输入密码 (测试密码: bian)" class="flex-1 rounded-lg border border-muted px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:border-accent" />
+        <input id="secret-pass" type="password" placeholder="输入专属解密密钥" class="flex-1 rounded-lg border border-muted px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:border-accent" />
         <button id="unlock-btn" class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">解锁</button>
       </div>
       <p id="error-msg" class="text-xs text-red-500 mt-2 hidden">密码错误，请重新输入</p>
@@ -64,7 +64,7 @@ const privatePosts = await getCollection("privatePosts");
     const errorMsg = document.getElementById("error-msg");
 
     btn?.addEventListener("click", () => {
-      if (input.value === "bian") {
+      if (input.value === "1290@1369xH") {
         lockScreen.classList.add("hidden");
         privateContent.classList.remove("hidden");
       } else {
