@@ -24,8 +24,6 @@ export async function getStaticPaths() {
     params: { slug: getPostSlug(post.id, post.filePath) },
     props: {
       post,
-      // sortedPosts is newest-first, so "older" (prev) is a higher index
-      // and "newer" (next) is a lower index.
       prevPost:
         index < sortedPosts.length - 1
           ? {
@@ -94,6 +92,8 @@ if (!ogImageUrl && config.features.dynamicOgImage) {
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
+
+const postSlug = getPostSlug(post.id, post.filePath);
 ---
 
 <PostLayout
@@ -120,8 +120,10 @@ const ogImage = ogImageUrl
       {title}
     </h1>
 
-    <div class="my-2 flex items-center gap-2">
+    <div class="my-2 flex flex-wrap items-center gap-3">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      <span class="text-muted-foreground">|</span>
+      <span id="views-counter" class="text-accent font-medium text-sm">👀 读取中...</span>
       <span
         aria-hidden="true"
         class:list={[
@@ -160,9 +162,52 @@ const ogImage = ogImageUrl
     <hr class="my-8 border-dashed" />
 
     <AdjacentPostNav {prevPost} {nextPost} />
+
+    <!-- Giscus 评论区对接 -->
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold mb-4 text-accent">💬 互动评论</h2>
+      <div class="giscus"></div>
+      <script is:inline
+        src="https://giscus.app/client.js"
+        data-repo="hclg/hclg.github.io"
+        data-repo-id="R_kgDON"
+        data-category="Announcements"
+        data-category-id="DIC_kwDON"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </section>
   </main>
   <Footer />
 </PostLayout>
+
+<script is:inline data-slug={postSlug}>
+  // 结合 AWS Sydney Lambda 统计动态页面阅读量
+  async function fetchViews() {
+    const slug = document.currentScript.getAttribute('data-slug');
+    const counterEl = document.getElementById('views-counter');
+    if (!counterEl) return;
+    try {
+      const res = await fetch(`https://2k4h5wqi4k5bj4pnlooo4srouq0ipbcx.lambda-url.ap-southeast-2.on.aws/?slug=${encodeURIComponent(slug)}`);
+      const data = await res.json();
+      if (data.views !== undefined) {
+        counterEl.innerText = `👀 ${data.views} 次阅读`;
+      } else {
+        counterEl.innerText = `👀 1 次阅读`;
+      }
+    } catch (e) {
+      counterEl.innerText = `👀 1 次阅读`;
+    }
+  }
+  fetchViews();
+</script>
 
 <script is:inline data-astro-rerun>
   function createProgressBar() {
@@ -273,8 +318,6 @@ const ogImage = ogImageUrl
     let overlay = null;
     let lastFocused = null;
 
-    // Defer attribute mutations so they don't push the LCP timestamp.
-    // Event listeners below use delegation and don't need the attributes to exist yet.
     requestAnimationFrame(() => {
       const images = Array.from(article.querySelectorAll("img"));
       for (const image of images) {
@@ -464,7 +507,7 @@ const ogImage = ogImageUrl
       }
       const remove = () => el.remove();
       el.addEventListener("transitionend", remove, { once: true });
-      setTimeout(remove, 250); // fallback in case transitionend never fires
+      setTimeout(remove, 250);
       el.classList.remove("opacity-100");
     }
 
@@ -476,7 +519,6 @@ const ogImage = ogImageUrl
       }
     }
 
-    // Keep keyboard focus inside the open dialog.
     function trapFocus(e) {
       if (!overlay) return;
       const focusables = overlay.querySelectorAll(

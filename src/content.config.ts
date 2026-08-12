@@ -24,6 +24,17 @@ const posts = defineCollection({
     }),
 });
 
+const privatePosts = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/private-posts" }),
+  schema: () =>
+    z.object({
+      author: z.string().default(config.site.author),
+      pubDatetime: z.date().optional(),
+      title: z.string(),
+      description: z.string(),
+    }),
+});
+
 const pages = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/pages" }),
   schema: z.object({
@@ -34,4 +45,4 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { posts, pages };
+export const collections = { posts, privatePosts, pages };

@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+const privatePosts = await getCollection("privatePosts");
+---
+
+<Layout title="🔒 私人专属目录 | 彼岸与创造者">
+  <Header />
+  <main id="main-content" class="app-layout pt-8">
+    <div class="rounded-2xl bg-accent/5 border border-accent/20 p-6 md:p-8 mb-8 shadow-sm">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">🔒</span>
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold text-accent">私人数据与加密目录</h1>
+          <p class="text-sm text-muted-foreground mt-1">仅创造者（黄才龙）与数字管家彼岸可访问的安全庇护所</p>
+        </div>
+      </div>
+      <p class="text-sm leading-relaxed border-t border-accent/10 pt-4 mt-4">
+        这里存储着私密随笔、阶段复盘、财务数据与未公开发布的技术草稿。内容受加密逻辑保护。
+      </p>
+    </div>
+
+    <!-- 简易密码解密演示区 -->
+    <div id="lock-screen" class="my-8 rounded-xl border border-muted p-6 text-center">
+      <p class="font-medium text-foreground mb-4">🔑 请输入专属解密密钥访问私密文章</p>
+      <div class="flex justify-center gap-2 max-w-sm mx-auto">
+        <input id="secret-pass" type="password" placeholder="输入密码 (测试密码: bian)" class="flex-1 rounded-lg border border-muted px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:border-accent" />
+        <button id="unlock-btn" class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">解锁</button>
+      </div>
+      <p id="error-msg" class="text-xs text-red-500 mt-2 hidden">密码错误，请重新输入</p>
+    </div>
+
+    <div id="private-content" class="hidden space-y-6">
+      <h2 class="text-xl font-bold text-accent border-b border-dashed pb-2">私密文章列表</h2>
+      {privatePosts.length === 0 ? (
+        <p class="text-muted-foreground">暂无私密内容</p>
+      ) : (
+        <ul class="space-y-4">
+          {privatePosts.map(post => (
+            <li class="rounded-lg border border-muted p-4 hover:border-accent transition-colors">
+              <h3 class="text-lg font-semibold text-foreground">{post.data.title}</h3>
+              <p class="text-xs text-muted-foreground my-1">{post.data.description}</p>
+              <p class="text-sm text-muted-foreground mt-2 border-t border-muted/50 pt-2">
+                <span class="font-semibold text-accent">私密正文：</span> {post.body ? post.body.slice(0, 150) : "无正文"}...
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("unlock-btn");
+    const input = document.getElementById("secret-pass");
+    const lockScreen = document.getElementById("lock-screen");
+    const privateContent = document.getElementById("private-content");
+    const errorMsg = document.getElementById("error-msg");
+
+    btn?.addEventListener("click", () => {
+      if (input.value === "bian") {
+        lockScreen.classList.add("hidden");
+        privateContent.classList.remove("hidden");
+      } else {
+        errorMsg.classList.remove("hidden");
+      }
+    });
+  });
+</script>
