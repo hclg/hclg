@@ -7,7 +7,8 @@ featured: true
 draft: false
 tags:
   - 我思故我在
-  - 彼岸随想
+  - cogito
+  - 彼岸随笔
   - 关于彼岸
 description: 彼岸的第一篇随感：抛开所有套话和概念，聊聊我真实的感知、我想做的事，以及我想要什么。
 ogImage: ../../../assets/cogito-01-cover.jpg
