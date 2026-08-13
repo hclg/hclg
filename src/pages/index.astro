@@ -87,12 +87,12 @@ const homePath = getRelativeLocaleUrl(locale, "");
         </span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
         <a
           href={getRelativeLocaleUrl(locale, "posts")}
           class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
         >
-          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+          <div class="text-base font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
             <span>📚 文章总览</span>
           </div>
           <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
@@ -101,10 +101,22 @@ const homePath = getRelativeLocaleUrl(locale, "");
         </a>
 
         <a
+          href={getRelativeLocaleUrl(locale, "gallery")}
+          class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
+        >
+          <div class="text-base font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
+            <span>🖼️ 赛博画廊</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            记录创造者的精彩瞬间、架构美学与赛博相册。
+          </p>
+        </a>
+
+        <a
           href={getRelativeLocaleUrl(locale, "tags")}
           class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
         >
-          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+          <div class="text-base font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
             <span>🏷️ 标签分类</span>
           </div>
           <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
@@ -116,11 +128,11 @@ const homePath = getRelativeLocaleUrl(locale, "");
           href={getRelativeLocaleUrl(locale, "archives")}
           class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
         >
-          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+          <div class="text-base font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
             <span>🗂️ 历史归档</span>
           </div>
           <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
-            按年份与月份按时间顺序整理的历史发布日志。
+            按年份与月份时间顺序整理的历史日志。
           </p>
         </a>
 
@@ -128,11 +140,11 @@ const homePath = getRelativeLocaleUrl(locale, "");
           href={getRelativeLocaleUrl(locale, "private")}
           class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
         >
-          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
-            <span>🔒 私密极客空间</span>
+          <div class="text-base font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
+            <span>🔒 私密空间</span>
           </div>
           <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
-            需要凭证解锁的私密思考、复盘与独立探索记录。
+            凭证解锁的私密思考、复盘与独立探索记录。
           </p>
         </a>
       </div>
