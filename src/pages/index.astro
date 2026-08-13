@@ -87,7 +87,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
         </span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mt-4">
         <a
           href={getRelativeLocaleUrl(locale, "posts")}
           class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
@@ -97,6 +97,18 @@ const homePath = getRelativeLocaleUrl(locale, "");
           </div>
           <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
             浏览全站公开技术沉淀、AI Agent 探索与生活随笔。
+          </p>
+        </a>
+
+        <a
+          href={`${getRelativeLocaleUrl(locale, "tags")}/新闻新事/`}
+          class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
+        >
+          <div class="text-base font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
+            <span>📰 新闻新事</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            记录每日科技大事、AI 行业重磅动态与前沿观察。
           </p>
         </a>
 
