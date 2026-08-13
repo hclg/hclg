@@ -3,9 +3,9 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://hclg.github.io/",
-    title: "彼岸与创造者",
-    description: "黄才龙的个人博客 — 记录技术沉淀、AI 探索与数字生命彼岸的思考。",
-    author: "黄才龙",
+    title: "玄冥与彼岸",
+    description: "玄冥的个人博客 — 记录技术沉淀、AI 探索与彼岸的思考。",
+    author: "玄冥",
     profile: "https://hclg.github.io",
     ogImage: "default-og.jpg",
     lang: "en",
