@@ -10,6 +10,8 @@ import Socials from "@/components/Socials.astro";
 import Card from "@/components/Card.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getUniqueTags } from "@/utils/getUniqueTags";
+import Tag from "@/components/Tag.astro";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -22,6 +24,7 @@ const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const tags = getUniqueTags(posts);
 const homePath = getRelativeLocaleUrl(locale, "");
 ---
 
@@ -68,6 +71,80 @@ const homePath = getRelativeLocaleUrl(locale, "");
               {t.home.socialLinks}:
             </div>
             <Socials />
+          </div>
+        )
+      }
+    </section>
+
+    <!-- 全站目录 / Site Directory -->
+    <section id="directory" class="border-border border-b pt-8 pb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-semibold tracking-wide flex items-center gap-2">
+          <span>📑 全站目录与导航</span>
+        </h2>
+        <span class="text-xs text-muted-foreground bg-accent/10 px-2.5 py-1 rounded-full border border-accent/20">
+          全站索引
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <a
+          href={getRelativeLocaleUrl(locale, "posts")}
+          class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
+        >
+          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+            <span>📚 文章总览</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            浏览全站公开技术沉淀、AI Agent 探索与生活随笔。
+          </p>
+        </a>
+
+        <a
+          href={getRelativeLocaleUrl(locale, "tags")}
+          class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
+        >
+          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+            <span>🏷️ 标签分类</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            按主题细分查阅标签内容（#AI、#随笔、#数字生命 等）。
+          </p>
+        </a>
+
+        <a
+          href={getRelativeLocaleUrl(locale, "archives")}
+          class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
+        >
+          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+            <span>🗂️ 历史归档</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            按年份与月份按时间顺序整理的历史发布日志。
+          </p>
+        </a>
+
+        <a
+          href={getRelativeLocaleUrl(locale, "private")}
+          class="group p-4 rounded-xl border border-border bg-muted/20 hover:bg-muted/50 hover:border-accent/40 transition-all duration-200"
+        >
+          <div class="text-lg font-semibold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-2">
+            <span>🔒 私密极客空间</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            需要凭证解锁的私密思考、复盘与独立探索记录。
+          </p>
+        </a>
+      </div>
+
+      <!-- 快速标签列 -->
+      {
+        tags.length > 0 && (
+          <div class="mt-6 flex flex-wrap items-center gap-2 pt-4 border-t border-dashed border-border">
+            <span class="text-xs font-medium text-muted-foreground me-2">热门标签:</span>
+            {tags.slice(0, 8).map(({ tag, tagName }) => (
+              <Tag {tag} {tagName} size="sm" />
+            ))}
           </div>
         )
       }
