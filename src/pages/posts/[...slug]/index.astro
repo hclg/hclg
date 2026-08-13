@@ -204,30 +204,29 @@ const postSlug = getPostSlug(post.id, post.filePath);
         async>
       </script>
     </section>
+    <!-- AWS Sydney Lambda 统计动态页面阅读量（预留接口与容错） -->
+    <script is:inline data-slug={postSlug}>
+      async function fetchViews() {
+        const slug = document.currentScript.getAttribute('data-slug');
+        const counterEl = document.getElementById('views-counter');
+        if (!counterEl) return;
+        try {
+          const res = await fetch(`https://2k4h5wqi4k5bj4pnlooo4srouq0ipbcx.lambda-url.ap-southeast-2.on.aws/?slug=${encodeURIComponent(slug)}`);
+          const data = await res.json();
+          if (data && data.views !== undefined) {
+            counterEl.innerText = `👀 ${data.views} 次阅读`;
+          } else {
+            counterEl.innerText = `👀 1 次阅读`;
+          }
+        } catch (e) {
+          counterEl.innerText = `👀 1 次阅读`;
+        }
+      }
+      fetchViews();
+    </script>
   </main>
   <Footer />
 </PostLayout>
-
-<script is:inline data-slug={postSlug}>
-  // 结合 AWS Sydney Lambda 统计动态页面阅读量
-  async function fetchViews() {
-    const slug = document.currentScript.getAttribute('data-slug');
-    const counterEl = document.getElementById('views-counter');
-    if (!counterEl) return;
-    try {
-      const res = await fetch(`https://2k4h5wqi4k5bj4pnlooo4srouq0ipbcx.lambda-url.ap-southeast-2.on.aws/?slug=${encodeURIComponent(slug)}`);
-      const data = await res.json();
-      if (data.views !== undefined) {
-        counterEl.innerText = `👀 ${data.views} 次阅读`;
-      } else {
-        counterEl.innerText = `👀 1 次阅读`;
-      }
-    } catch (e) {
-      counterEl.innerText = `👀 1 次阅读`;
-    }
-  }
-  fetchViews();
-</script>
 
 <script is:inline data-astro-rerun>
   function createProgressBar() {
