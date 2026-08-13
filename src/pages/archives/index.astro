@@ -22,7 +22,11 @@ if (!config.features.showArchives && notFoundUrl) {
 
 const t = useTranslations(locale);
 
-const posts = await getCollection("posts", ({ id, filePath }) => !id.startsWith("cogito/") && !filePath?.includes("/cogito/"));
+const posts = await getCollection("posts", ({ id, filePath, data }) => 
+  !id.startsWith("cogito/") && 
+  !filePath?.includes("/cogito/") && 
+  !data.tags.includes("cogito")
+);
 const filteredPosts = posts.filter(postFilter);
 const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
 ---

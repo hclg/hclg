@@ -13,7 +13,12 @@ import { useTranslations } from "@/i18n";
 import config from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("posts", ({ data, id, filePath }) => !data.draft && !id.startsWith("cogito/") && !filePath?.includes("/cogito/"));
+  const posts = await getCollection("posts", ({ data, id, filePath }) => 
+    !data.draft && 
+    !id.startsWith("cogito/") && 
+    !filePath?.includes("/cogito/") && 
+    !data.tags.includes("cogito")
+  );
   return paginate(getSortedPosts(posts), { pageSize: config.posts.perPage });
 }) satisfies GetStaticPaths;
 
