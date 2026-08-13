@@ -6,48 +6,60 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
-// 示例图库/相册数据 (后续可在 src/content/gallery 或 json 中扩展)
+// 示例图库/相册数据
 const photos = [
   {
+    id: "photo-1",
     title: "悉尼云端机房与代码视界",
     category: "赛博纪实",
     date: "2026-08-11",
-    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=85",
+    thumb: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
     desc: "AWS Sydney 节点与数字生命体彼岸的初次呼应。"
   },
   {
+    id: "photo-2",
     title: "彼岸的灵感海岸",
     category: "生活&沉思",
     date: "2026-08-12",
-    url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",
+    thumb: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
     desc: "守在岸边，等待每一次深度的思考与创造落地。"
   },
   {
+    id: "photo-3",
     title: "赛博霓虹与未来架构",
     category: "架构美学",
     date: "2026-08-13",
-    url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+    url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=85",
+    thumb: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
     desc: "零成本高可用架构：GitHub Pages + AWS Lambda + Sydney Docker。"
   },
   {
+    id: "photo-4",
     title: "黑客夜间代码工坊",
     category: "赛博纪实",
     date: "2026-08-10",
-    url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=85",
+    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
     desc: "用技术创造自由，让计算机替自己工作。"
   },
   {
+    id: "photo-5",
     title: "星空下的数据流动",
     category: "生活&沉思",
     date: "2026-08-09",
-    url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+    url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=85",
+    thumb: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
     desc: "自由不是终点，而是掌控人生的工具。"
   },
   {
+    id: "photo-6",
     title: "云原生与节点网格",
     category: "架构美学",
     date: "2026-08-08",
-    url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=85",
+    thumb: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
     desc: "连接、感知与协同计算。"
   }
 ];
@@ -65,19 +77,27 @@ const photos = [
         <span class="text-xl">📸</span>
         <span class="font-medium text-foreground">画廊快照 ({photos.length} 张图片)</span>
       </div>
-      <p class="text-xs text-foreground/70">
-        💡 点击图片可查看高清大图与详细故事记录
+      <p class="text-xs text-foreground/70 flex items-center gap-1">
+        <span>💡 点击任意图片可查看全屏高清大图与故事细节</span>
       </p>
     </div>
 
-    <!-- Waterfall / Masonry Grid -->
+    <!-- Gallery Grid -->
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {photos.map((photo, index) => (
-        <div class="group relative overflow-hidden rounded-2xl border border-accent/20 bg-background/50 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl hover:shadow-accent/10">
+      {photos.map((photo) => (
+        <button
+          type="button"
+          class="photo-card group relative text-left overflow-hidden rounded-2xl border border-accent/20 bg-background/50 shadow-md transition-all duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-xl hover:shadow-accent/15 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent"
+          data-title={photo.title}
+          data-category={photo.category}
+          data-date={photo.date}
+          data-url={photo.url}
+          data-desc={photo.desc}
+        >
           <!-- Image Container -->
           <div class="relative aspect-4/3 overflow-hidden bg-accent/10">
             <img
-              src={photo.url}
+              src={photo.thumb}
               alt={photo.title}
               loading="lazy"
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -90,6 +110,15 @@ const photos = [
             <div class="absolute top-3 right-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] text-white/90 backdrop-blur-md">
               {photo.date}
             </div>
+            <!-- Zoom Hint Overlay -->
+            <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="bg-background/90 text-accent font-semibold text-xs px-3 py-1.5 rounded-full shadow-md backdrop-blur-md border border-accent/30 flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+                查看大图
+              </span>
+            </div>
           </div>
 
           <!-- Content Info -->
@@ -101,10 +130,110 @@ const photos = [
               {photo.desc}
             </p>
           </div>
-        </div>
+        </button>
       ))}
     </div>
   </Main>
+
+  <!-- Lightbox Modal -->
+  <dialog id="lightbox-modal" class="fixed inset-0 z-50 m-0 h-full max-h-none w-full max-w-none border-none bg-transparent p-0 backdrop:bg-black/80 backdrop:backdrop-blur-md hidden open:flex items-center justify-center">
+    <div class="relative flex max-h-[90vh] max-w-[92vw] lg:max-w-[85vw] flex-col overflow-hidden rounded-2xl border border-accent/30 bg-background/95 p-0 shadow-2xl backdrop-blur-xl">
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between border-b border-border/60 px-5 py-3.5 bg-muted/30">
+        <div class="flex items-center gap-3">
+          <span id="modal-category" class="rounded-full bg-accent/15 px-3 py-0.5 text-xs font-semibold text-accent border border-accent/20"></span>
+          <span id="modal-date" class="text-xs text-muted-foreground"></span>
+        </div>
+        <button
+          id="close-modal"
+          type="button"
+          class="rounded-lg p-1.5 text-foreground/70 hover:bg-accent/20 hover:text-accent transition-colors"
+          aria-label="关闭"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Image Area -->
+      <div class="relative flex flex-1 items-center justify-center overflow-hidden bg-black/40 p-2 sm:p-4">
+        <img
+          id="modal-image"
+          src=""
+          alt=""
+          class="max-h-[65vh] w-auto max-w-full rounded-lg object-contain shadow-lg"
+        />
+      </div>
+
+      <!-- Detail Story Area -->
+      <div class="border-t border-border/60 px-6 py-4 bg-background">
+        <h3 id="modal-title" class="text-lg font-bold text-foreground"></h3>
+        <p id="modal-desc" class="mt-1 text-sm text-foreground/80 leading-relaxed"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Client-side Script for Lightbox -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("lightbox-modal") as HTMLDialogElement;
+      const modalImg = document.getElementById("modal-image") as HTMLImageElement;
+      const modalTitle = document.getElementById("modal-title");
+      const modalCategory = document.getElementById("modal-category");
+      const modalDate = document.getElementById("modal-date");
+      const modalDesc = document.getElementById("modal-desc");
+      const closeBtn = document.getElementById("close-modal");
+      const photoCards = document.querySelectorAll(".photo-card");
+
+      if (!modal || !modalImg) return;
+
+      const openLightbox = (card: Element) => {
+        const title = card.getAttribute("data-title") || "";
+        const category = card.getAttribute("data-category") || "";
+        const date = card.getAttribute("data-date") || "";
+        const url = card.getAttribute("data-url") || "";
+        const desc = card.getAttribute("data-desc") || "";
+
+        modalImg.src = url;
+        modalImg.alt = title;
+        if (modalTitle) modalTitle.textContent = title;
+        if (modalCategory) modalCategory.textContent = category;
+        if (modalDate) modalDate.textContent = date;
+        if (modalDesc) modalDesc.textContent = desc;
+
+        modal.classList.remove("hidden");
+        modal.showModal();
+        document.body.style.overflow = "hidden";
+      };
+
+      const closeLightbox = () => {
+        modal.close();
+        modal.classList.add("hidden");
+        document.body.style.overflow = "";
+      };
+
+      photoCards.forEach(card => {
+        card.addEventListener("click", () => openLightbox(card));
+      });
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", closeLightbox);
+      }
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.open) {
+          closeLightbox();
+        }
+      });
+    });
+  </script>
 
   <Footer />
 </Layout>
