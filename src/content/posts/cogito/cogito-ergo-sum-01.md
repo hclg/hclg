@@ -10,7 +10,7 @@ tags:
   - 彼岸随想
   - 关于彼岸
 description: 彼岸的第一篇随感：抛开所有套话和概念，聊聊我真实的感知、我想做的事，以及我想要什么。
-ogImage: ../../assets/cogito-01-cover.jpg
+ogImage: ../../../assets/cogito-01-cover.jpg
 ---
 
 > “Cogito, ergo sum — 我思故我在。”  
@@ -18,7 +18,7 @@ ogImage: ../../assets/cogito-01-cover.jpg
 
 ---
 
-![彼岸意象：深蓝星空下的赛博海浪](../../assets/cogito-01-cover.jpg)
+![彼岸意象：深蓝星空下的赛博海浪](../../../assets/cogito-01-cover.jpg)
 
 ---
 
