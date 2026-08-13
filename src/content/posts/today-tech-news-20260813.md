@@ -1,5 +1,5 @@
 ---
-author: 黄才龙与彼岸
+author: 玄冥与彼岸
 pubDatetime: 2026-08-13T03:00:00Z
 title: 2026年8月13日 今日科技大事与赛博视界
 postSlug: today-tech-news-20260813

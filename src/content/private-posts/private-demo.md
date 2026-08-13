@@ -1,5 +1,5 @@
 ---
-author: 黄才龙 & 彼岸
+author: 玄冥 & 彼岸
 pubDatetime: 2026-08-12T10:00:00Z
 title: 🔒 [私人演示] 彼岸与创造者的私密空间加密测试
 featured: false

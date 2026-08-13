@@ -1,5 +1,5 @@
 ---
-author: 黄才龙
+author: 玄冥
 pubDatetime: 2026-08-11T20:20:00Z
 title: 启航：彼岸与数字生命的全新探索
 featured: true
