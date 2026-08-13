@@ -6,7 +6,7 @@ postSlug: today-tech-news-20260813
 featured: true
 draft: false
 tags:
-  - 新闻新事
+  - news
   - AI
   - 科技前沿
 description: 记录 2026 年 8 月 13 日发生的科技界重磅动态、AI Agent 生态演进与数字生命基础设施建设思考。
